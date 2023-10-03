@@ -64,7 +64,16 @@ public class Principal {
 	}
 
 	private void buscarPorNombre() {
-		System.out.println("2");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Ingrese el comienzo del nombre de el/los usuario/s:");
+		String inicioNombre = sc.nextLine();
+        List<Persona> resultados = new ArrayList<>();
+        for (Persona contacto : agenda) {
+            if (contacto.getNombre().startsWith(inicioNombre)) {
+                resultados.add(contacto);
+            }
+        }
+        menu.mostrarContactos(resultados);		
 	}
 
 	private void mostrarAgenda() {
@@ -85,9 +94,9 @@ public class Principal {
 	private void borrarContacto() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Ingrese el nombre del contacto a borrar:");
-		String nmb = sc.nextLine();
+		String nombre = sc.nextLine();
 		for (Persona contacto : agenda) {
-			if (contacto.getNombre().equals(nmb)) {
+			if (contacto.getNombre().equals(nombre)) {
 				agenda.remove(contacto);
 				System.out.println("Contacto borrado exitosamente\n");
 				return;
