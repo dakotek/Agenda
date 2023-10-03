@@ -2,6 +2,7 @@ package agendaContactos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Principal {
@@ -53,7 +54,7 @@ public class Principal {
 	}
 
 	private void mostrarAgenda() {
-		System.out.println("3");
+		menu.mostrarContactos(agenda);
 	}
 
 	private void agregarContacto() {
@@ -68,7 +69,17 @@ public class Principal {
 	}
 
 	private void borrarContacto() {
-		System.out.println("5");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Ingrese el nombre del contacto a borrar:");
+		String nmb = sc.nextLine();
+        for (Persona contacto : agenda) {
+            if (contacto.getNombre().equals(nmb)) {
+                agenda.remove(contacto);
+                System.out.println("Contacto borrado exitosamente\n");
+                return;
+            }
+        }
+        System.err.println("No se encontró ningún contacto con ese código de usuario");
 	}
 
 }
