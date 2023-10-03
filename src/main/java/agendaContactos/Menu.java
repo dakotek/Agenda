@@ -20,8 +20,12 @@ public class Menu {
 	
 	public String pedirNombre() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduce el nombre: ");
-		String nombre = sc.nextLine();
+		String nombre;
+		do {
+			System.out.print("Introduce el nombre (Obligatorio): ");
+			nombre = sc.nextLine();
+		} while (nombre.isEmpty()); //Mientras que el nombre este en blanco, seguir pidiendo (Obligatorio)
+		
 		return nombre;
 	}
 	
@@ -38,11 +42,15 @@ public class Menu {
         while (true) {
             try {
                 System.out.print("Introduce la edad: ");
-                edad = sc.nextInt();
-                break; // Salir del bucle si se ingresa un entero válido
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("Debes ingresar una edad válida:");
-                sc.nextLine(); // Limpiar el búfer del scanner
+                String input = sc.nextLine();
+                if (input.isEmpty()) {
+                    edad = 0; // Si la entrada está en blanco = 0
+                } else {
+                    edad = Integer.parseInt(input); // Intentar convertir la edad en un entero, si no excepcion y vuelve a pedir edad
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Debes ingresar una edad válida o dejarlo en blanco:");
             }
         }
         return edad;
