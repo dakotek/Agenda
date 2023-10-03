@@ -60,9 +60,13 @@ public class Principal {
 						resultados.add(contacto);
 					}
 				}
-				menu.mostrarContactos(resultados);
+				if (resultados.isEmpty()) {
+		        	System.err.println("No hay contactos con ese codigo de usuario");
+		        } else {
+		        	menu.mostrarContactos(resultados);
+		        }
 			} catch (IllegalArgumentException e) {
-				System.err.println("El formato del codigo de usuario ingresado no es válido");
+				System.err.println("El formato del codigo ingresado no es válido");
 			}
 		}
 	}
@@ -72,7 +76,7 @@ public class Principal {
 		    System.err.println("No hay contactos en la agenda");
 		} else {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Ingrese el comienzo del nombre de el/los usuario/s:");
+			System.out.println("Ingrese un comienzo de nombre:");
 			String inicioNombre = sc.nextLine();
 	        List<Persona> resultados = new ArrayList<>();
 	        for (Persona contacto : agenda) {
@@ -80,7 +84,11 @@ public class Principal {
 	                resultados.add(contacto);
 	            }
 	        }
-	        menu.mostrarContactos(resultados);
+	        if (resultados.isEmpty()) {
+	        	System.err.println("No hay contactos con ese comienzo de nombre");
+	        } else {
+	        	menu.mostrarContactos(resultados);
+	        }
 		}		
 	}
 
