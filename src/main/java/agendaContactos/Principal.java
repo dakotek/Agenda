@@ -46,38 +46,50 @@ public class Principal {
 	}
 
 	private void buscarPorCodigo() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese el código de usuario:");
-		String codigoString = sc.nextLine();
-		try {
-			UUID codigo = UUID.fromString(codigoString);
-			List<Persona> resultados = new ArrayList<>();
-			for (Persona contacto : agenda) {
-				if (contacto.getUsuario().equals(codigo)) {
-					resultados.add(contacto);
+		if (agenda.isEmpty()) {
+		    System.err.println("No hay contactos en la agenda");
+		} else {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Ingrese el código de usuario:");
+			String codigoString = sc.nextLine();
+			try {
+				UUID codigo = UUID.fromString(codigoString);
+				List<Persona> resultados = new ArrayList<>();
+				for (Persona contacto : agenda) {
+					if (contacto.getUsuario().equals(codigo)) {
+						resultados.add(contacto);
+					}
 				}
+				menu.mostrarContactos(resultados);
+			} catch (IllegalArgumentException e) {
+				System.err.println("El formato del codigo de usuario ingresado no es válido");
 			}
-			menu.mostrarContactos(resultados);
-		} catch (IllegalArgumentException e) {
-			System.err.println("El formato del codigo de usuario ingresado no es válido");
 		}
 	}
 
 	private void buscarPorNombre() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese el comienzo del nombre de el/los usuario/s:");
-		String inicioNombre = sc.nextLine();
-        List<Persona> resultados = new ArrayList<>();
-        for (Persona contacto : agenda) {
-            if (contacto.getNombre().startsWith(inicioNombre)) {
-                resultados.add(contacto);
-            }
-        }
-        menu.mostrarContactos(resultados);		
+		if (agenda.isEmpty()) {
+		    System.err.println("No hay contactos en la agenda");
+		} else {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Ingrese el comienzo del nombre de el/los usuario/s:");
+			String inicioNombre = sc.nextLine();
+	        List<Persona> resultados = new ArrayList<>();
+	        for (Persona contacto : agenda) {
+	            if (contacto.getNombre().startsWith(inicioNombre)) {
+	                resultados.add(contacto);
+	            }
+	        }
+	        menu.mostrarContactos(resultados);
+		}		
 	}
 
 	private void mostrarAgenda() {
-		menu.mostrarContactos(agenda);
+		if (agenda.isEmpty()) {
+		    System.err.println("No hay contactos en la agenda");
+		} else {
+			menu.mostrarContactos(agenda);
+		}
 	}
 
 	private void agregarContacto() {
@@ -92,17 +104,21 @@ public class Principal {
 	}
 
 	private void borrarContacto() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese el nombre del contacto a borrar:");
-		String nombre = sc.nextLine();
-		for (Persona contacto : agenda) {
-			if (contacto.getNombre().equals(nombre)) {
-				agenda.remove(contacto);
-				System.out.println("Contacto borrado exitosamente\n");
-				return;
+		if (agenda.isEmpty()) {
+		    System.err.println("No hay contactos en la agenda");
+		} else {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Ingrese el nombre del contacto a borrar:");
+			String nombre = sc.nextLine();
+			for (Persona contacto : agenda) {
+				if (contacto.getNombre().equals(nombre)) {
+					agenda.remove(contacto);
+					System.out.println("Contacto borrado exitosamente\n");
+					return;
+				}
 			}
+			System.err.println("No se encontró ningún contacto con ese nombre");
 		}
-		System.err.println("No se encontró ningún contacto con ese código de usuario");
 	}
 
 }
