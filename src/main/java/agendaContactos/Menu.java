@@ -7,7 +7,7 @@ public class Menu {
 
 	public String pedirOpcion() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Selecciona una opción (1 a 5):\n"
+		System.out.println("Selecciona una opción (1 a 6):\n"
 				+ "1. Buscar por código de usuario\n"
 				+ "2. Buscar por el comienzo del nombre\n"
 				+ "3. Mostrar la agenda completa\n"
@@ -51,7 +51,7 @@ public class Menu {
 	public void mostrarContactos(List<Persona> contactos) {
 		for (Persona contacto : contactos) {
             System.out.println(contacto);
-            System.out.println("-------------");
         }
+		System.out.println();
 	}
 }

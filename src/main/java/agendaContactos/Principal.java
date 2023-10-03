@@ -46,7 +46,21 @@ public class Principal {
 	}
 
 	private void buscarPorCodigo() {
-		System.out.println("1");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Ingrese el código de usuario:");
+		String codigoString = sc.nextLine();
+		try {
+			UUID codigo = UUID.fromString(codigoString);
+			List<Persona> resultados = new ArrayList<>();
+			for (Persona contacto : agenda) {
+				if (contacto.getUsuario().equals(codigo)) {
+					resultados.add(contacto);
+				}
+			}
+			menu.mostrarContactos(resultados);
+		} catch (IllegalArgumentException e) {
+			System.err.println("El formato del codigo de usuario ingresado no es válido");
+		}
 	}
 
 	private void buscarPorNombre() {
@@ -59,27 +73,27 @@ public class Principal {
 
 	private void agregarContacto() {
 		System.out.println("Ingresa los datos del contacto:");
-        String nombre = menu.pedirNombre();
-        String telefono = menu.pedirTelefono();
-        int edad = menu.pedirEdad();
-        UUID codigo = UUID.randomUUID();
-        Persona nuevoContacto = new Persona(codigo, nombre, telefono, edad);
-        agenda.add(nuevoContacto);
-        System.out.println("Contacto agregado exitosamente\n");
+		String nombre = menu.pedirNombre();
+		String telefono = menu.pedirTelefono();
+		int edad = menu.pedirEdad();
+		UUID codigo = UUID.randomUUID();
+		Persona nuevoContacto = new Persona(codigo, nombre, telefono, edad);
+		agenda.add(nuevoContacto);
+		System.out.println("Contacto agregado exitosamente\n");
 	}
 
 	private void borrarContacto() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Ingrese el nombre del contacto a borrar:");
 		String nmb = sc.nextLine();
-        for (Persona contacto : agenda) {
-            if (contacto.getNombre().equals(nmb)) {
-                agenda.remove(contacto);
-                System.out.println("Contacto borrado exitosamente\n");
-                return;
-            }
-        }
-        System.err.println("No se encontró ningún contacto con ese código de usuario");
+		for (Persona contacto : agenda) {
+			if (contacto.getNombre().equals(nmb)) {
+				agenda.remove(contacto);
+				System.out.println("Contacto borrado exitosamente\n");
+				return;
+			}
+		}
+		System.err.println("No se encontró ningún contacto con ese código de usuario");
 	}
 
 }
